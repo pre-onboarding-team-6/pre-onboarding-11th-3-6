@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { List } from '../components';
-import { IssueContext } from '../context/IssuesProvider';
+import { IssueContext } from '../context/Issues';
 
 const Main = () => {
   const { issues, isLoding, error } = useContext(IssueContext);
