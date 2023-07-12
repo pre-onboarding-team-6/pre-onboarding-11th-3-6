@@ -22,5 +22,7 @@ export const IssueProvider = ({ children }) => {
     })();
   }, []);
 
-  return <IssueContext.Provider value={{ issues, isLoading, error }}>{children}</IssueContext.Provider>;
+  const selectIssue = id => issues.find(({ number }) => id === number);
+
+  return <IssueContext.Provider value={{ issues, isLoading, error, selectIssue }}>{children}</IssueContext.Provider>;
 };
