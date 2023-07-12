@@ -12,9 +12,9 @@ const Banner = styled.img`
 `;
 
 const Main = () => {
-  const { issues, isLoding, error } = useContext(IssueContext);
+  const { issues, isLoading, error } = useContext(IssueContext);
 
-  if (isLoding) {
+  if (isLoading) {
     return <div>...loading</div>;
   }
 

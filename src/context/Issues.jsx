@@ -5,7 +5,7 @@ export const IssueContext = createContext(null);
 
 export const IssueProvider = ({ children }) => {
   const [issues, setIssues] = useState([]);
-  const [isLoding, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -22,5 +22,5 @@ export const IssueProvider = ({ children }) => {
     })();
   }, []);
 
-  return <IssueContext.Provider value={{ issues, isLoding, error }}>{children}</IssueContext.Provider>;
+  return <IssueContext.Provider value={{ issues, isLoading, error }}>{children}</IssueContext.Provider>;
 };
