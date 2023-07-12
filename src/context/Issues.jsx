@@ -1,29 +1,27 @@
 import { createContext, useState, useCallback, useEffect } from 'react';
-// import { createContext, useCallback, useEffect, useState } from 'react';
-import { getIssues } from '../api/github';
-// import { getIssue, getIssues } from '../api/github';
+import { getIssue, getIssues } from '../api/github';
 
 export const IssuesContext = createContext(null);
 
 export const IssuesProvider = ({ children }) => {
   const [issues, setIssues] = useState([]);
-  // const [issue, setIssue] = useState(null);
+  const [issue, setIssue] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [page, setPage] = useState(2);
 
-  // const getIssueDetail = useCallback(async issueNumber => {
-  //   try {
-  //     setIsLoading(true);
-  //     const { data } = await getIssue(issueNumber);
-  //     setIssue(data);
-  //   } catch (e) {
-  //     setError(true);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, []);
+  const getIssueDetail = useCallback(async issueNumber => {
+    try {
+      setIsLoading(true);
+      const { data } = await getIssue(issueNumber);
+      setIssue(data);
+    } catch (e) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const getNextPage = useCallback(async () => {
     try {
@@ -54,8 +52,7 @@ export const IssuesProvider = ({ children }) => {
   }, []);
 
   return (
-    <IssuesContext.Provider value={{ issues, isLoading, error, hasNextPage, getNextPage }}>
-      {/* <IssuesContext.Provider value={{ issues, issue, isLoading, error, getIssueDetail }}> */}
+    <IssuesContext.Provider value={{ issues, issue, isLoading, error, hasNextPage, getNextPage, getIssueDetail }}>
       {children}
     </IssuesContext.Provider>
   );

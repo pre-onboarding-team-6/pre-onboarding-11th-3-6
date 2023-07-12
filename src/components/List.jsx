@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const Container = styled.li`
   display: flex;
@@ -21,6 +21,8 @@ const Info = styled.div`
 const List = ({ issue }) => {
   const { number, title, user, created_at: createdAt, comments } = issue;
 
+  const { id } = useParams();
+
   const createdDate = new Date(createdAt);
   const year = createdDate.getFullYear();
   const month = createdDate.getMonth() + 1;
@@ -29,9 +31,13 @@ const List = ({ issue }) => {
   return (
     <Container>
       <Info>
-        <Link to={`detail/${number}`}>
+        {!id ? (
+          <Link to={`detail/${number}`}>
+            <Title>{`#${number} ${title}`}</Title>
+          </Link>
+        ) : (
           <Title>{`#${number} ${title}`}</Title>
-        </Link>
+        )}
         <span>{`작성자: ${user.login}, 작성일: ${year}년 ${month}월 ${day}일`}</span>
       </Info>
       <div>

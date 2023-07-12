@@ -1,10 +1,10 @@
-import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { IssueContext } from '../context/Issues';
-import { List } from '../components';
+import { useParams } from 'react-router-dom';
+import { IssuesContext } from '../context/Issues';
+import { List, Spinner } from '../components';
 
 const Flex = styled.div`
   display: flex;
@@ -23,19 +23,20 @@ const MarkDown = styled(ReactMarkdown)`
 `;
 
 const Detail = () => {
-  const { isLoading, error, selectIssue } = useContext(IssueContext);
-  const { id } = useParams();
-  const issue = selectIssue(+id);
+  const { issue, isLoading, error, getIssueDetail } = useContext(IssuesContext);
+  const { id: issueNumber } = useParams();
 
-  if (isLoading) {
-    return <div>...loading</div>;
+  useEffect(() => {
+    getIssueDetail(issueNumber);
+  }, [getIssueDetail, issueNumber]);
+
+  if (!issue || isLoading) {
+    return <Spinner />;
   }
 
   if (error) {
     return <div>{error}</div>;
   }
-
-  console.log(issue);
 
   return (
     <>
