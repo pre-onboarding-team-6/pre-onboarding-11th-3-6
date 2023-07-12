@@ -1,23 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { List } from '../components';
-import getIssue from '../api/github';
+import { IssueContext } from '../context/IssuesProvider';
 
 const Main = () => {
-  const [issues, setIssues] = useState([]);
+  const { issues, isLoding, error } = useContext(IssueContext);
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await getIssue();
-      setIssues(data);
-    })();
-  }, []);
+  if (isLoding) {
+    return <div>...loading</div>;
+  }
 
-  console.log(issues);
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <main>
       <ul>
-        {issues?.map(({ number, title, user, created_at: createdAt, comments }, idx) => (
+        {issues.map(({ number, title, user, created_at: createdAt, comments }, idx) => (
           <List
             key={number}
             number={number}

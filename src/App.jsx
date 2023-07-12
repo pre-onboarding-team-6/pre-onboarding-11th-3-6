@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Main, Root } from './pages';
 import GlobalStyle from './styles/GlobalStyle';
+import { IssueProvider } from './context/IssuesProvider';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,9 @@ const router = createBrowserRouter([
 const App = () => (
   <>
     <GlobalStyle />
-    <RouterProvider router={router} />
+    <IssueProvider>
+      <RouterProvider router={router} />
+    </IssueProvider>
   </>
 );
 
