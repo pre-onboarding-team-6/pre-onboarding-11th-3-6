@@ -1,7 +1,9 @@
 import Spinner from './Spinner';
 
-const ScrollObserver = ({ hasNextPage = true, observer = null }) => (
-  <div ref={observer}>{hasNextPage && <Spinner />}</div>
+const ScrollObserver = ({ observer = null }) => (
+  <div ref={observer}>
+    <Spinner />
+  </div>
 );
 
 export default ScrollObserver;
