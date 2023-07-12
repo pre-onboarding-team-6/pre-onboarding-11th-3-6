@@ -40,7 +40,7 @@ const Main = () => {
             </Fragment>
           );
         })}
-        {hasNextPage && <ScrollObserver observer={observerRef} isLoading={isLoading} />}
+        {hasNextPage && <ScrollObserver observer={observerRef} />}
       </ul>
     </main>
   );

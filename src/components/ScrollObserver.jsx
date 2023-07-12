@@ -1,5 +1,9 @@
 import Spinner from './Spinner';
 
-const ScrollObserver = ({ observer = null, isLoading = true }) => <div ref={observer}>{isLoading && <Spinner />}</div>;
+const ScrollObserver = ({ observer = null }) => (
+  <div ref={observer}>
+    <Spinner />
+  </div>
+);
 
 export default ScrollObserver;
