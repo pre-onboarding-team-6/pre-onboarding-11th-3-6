@@ -1,18 +1,9 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { List } from '../components';
-import { API_URL } from '../constants/urls';
+import getIssue from '../api/github';
 
 const Main = () => {
   const [issues, setIssues] = useState([]);
-
-  const getIssue = async () => {
-    const data = await axios.get(
-      `${API_URL.github}/repos/${API_URL.organization}/${API_URL.repository}/issues?sort=comments`
-    );
-
-    return data;
-  };
 
   useEffect(() => {
     (async () => {
@@ -20,6 +11,8 @@ const Main = () => {
       setIssues(data);
     })();
   }, []);
+
+  console.log(issues);
 
   return (
     <main>
