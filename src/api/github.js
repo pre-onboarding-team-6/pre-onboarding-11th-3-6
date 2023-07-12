@@ -10,10 +10,16 @@ const githubAxios = axios.create({
   },
 });
 
-const getIssue = async () => {
-  const data = await githubAxios.get('/issues?sort=comments');
+export const getIssues = async params => {
+  const data = await githubAxios.get('/issues', {
+    params,
+  });
 
   return data;
 };
 
-export default getIssue;
+export const getIssue = async issueNumber => {
+  const data = await githubAxios.get(`/issues/${issueNumber}`);
+
+  return data;
+};

@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Detail, Main, Root } from './pages';
 import GlobalStyle from './styles/GlobalStyle';
-import { IssueProvider } from './context/Issues';
+import { IssuesProvider } from './context/Issues';
 
 const router = createBrowserRouter([
   {
@@ -21,12 +21,10 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => (
-  <>
+  <IssuesProvider>
     <GlobalStyle />
-    <IssueProvider>
-      <RouterProvider router={router} />
-    </IssueProvider>
-  </>
+    <RouterProvider router={router} />
+  </IssuesProvider>
 );
 
 export default App;
