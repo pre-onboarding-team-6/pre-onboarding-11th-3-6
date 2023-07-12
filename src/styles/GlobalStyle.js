@@ -23,6 +23,12 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  a:hover,
+  a:link,
+  a:visited,
+  a:hover {
+    text-decoration:none;
+  }
 `;
 
 export default GlobalStyle;
