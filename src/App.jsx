@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import Header from './components/Header';
+import { Header } from './components/common';
 import RepoContext from './contexts/RepoContext';
 import GlobalStyle from './styles/GlobalStyle';
 
