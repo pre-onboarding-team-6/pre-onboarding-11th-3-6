@@ -9,7 +9,7 @@ const useGetIssues = getFunc => {
 
   const getData = async () => {
     try {
-      await getFunc(repo).then(res => setData(Array.isArray(res.data) ? [...data, ...res.data] : res.data));
+      await getFunc(repo).then(res => setData(res.data));
     } catch (err) {
       setError(err);
     }

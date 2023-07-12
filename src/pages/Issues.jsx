@@ -8,6 +8,7 @@ const Issues = () => {
   const [page, setPage] = useState(1);
   const getFunc = useCallback(repo => getIssues(page)(repo), [page]);
   const [issues, isLoading, error] = useGetIssues(getFunc);
+  const [issuesBox, setIssuesBox] = useState([]);
   const bottom = useRef();
 
   useEffect(() => {
@@ -22,9 +23,21 @@ const Issues = () => {
     }
   }, [bottom, isLoading]);
 
+  useEffect(() => {
+    if (issues[0]) {
+      const newIssues = [];
+      const rest = issuesBox.length ? issuesBox.length % 5 : 0;
+      issues.forEach((issue, idx) => {
+        if ((idx || rest) && (idx + rest) % 4 === 0) newIssues.push('ad');
+        newIssues.push(issue);
+      });
+      setIssuesBox(box => [...box, ...newIssues]);
+    }
+  }, [issues]);
+
   return (
     <main>
-      {issues[0] && <IssuesBox issues={issues} />}
+      {issuesBox[0] && <IssuesBox issues={issuesBox} />}
       {isLoading && <Loading />}
       {error && <Error />}
       <div ref={bottom} />
