@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Main, Root } from './pages';
+import { Detail, Main, Root } from './pages';
 import GlobalStyle from './styles/GlobalStyle';
 import { IssueProvider } from './context/Issues';
 
@@ -12,10 +12,10 @@ const router = createBrowserRouter([
         path: '',
         element: <Main />,
       },
-      // {
-      //   path: ':id',
-      //   element: <Detail />
-      // }
+      {
+        path: 'detail/:id',
+        element: <Detail />,
+      },
     ],
   },
 ]);
