@@ -1,7 +1,7 @@
 import { useContext, Fragment } from 'react';
 import styled from 'styled-components';
-import { List } from '../components';
-import { IssueContext } from '../context/Issues';
+import { List, ScrollObserver } from '../components';
+import { IssuesContext } from '../context/Issues';
 import { AD_URL } from '../constants/urls';
 
 const Banner = styled.img`
@@ -12,7 +12,7 @@ const Banner = styled.img`
 `;
 
 const Main = () => {
-  const { issues, isLoading, error } = useContext(IssueContext);
+  const { issues, isLoading, error } = useContext(IssuesContext);
 
   if (isLoading) {
     return <div>...loading</div>;
@@ -38,6 +38,7 @@ const Main = () => {
             </Fragment>
           );
         })}
+        <ScrollObserver />
       </ul>
     </main>
   );
