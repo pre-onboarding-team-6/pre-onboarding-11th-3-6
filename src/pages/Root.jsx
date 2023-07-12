@@ -6,7 +6,6 @@ const Container = styled.div`
   max-width: 1024px;
   margin: 0 auto;
   padding: 10px;
-  text-align: center;
 `;
 
 const Root = () => (

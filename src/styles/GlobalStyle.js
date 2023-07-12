@@ -11,10 +11,6 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
-  h2{
-    font-size: 16px;
-  }
-
   span{
     font-size: 14px;
   }

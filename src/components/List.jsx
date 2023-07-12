@@ -5,8 +5,13 @@ const Container = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   padding: 20px 10px;
   border-bottom: 1px solid black;
+`;
+
+const Title = styled.h2`
+  font-size: 16px;
 `;
 
 const Info = styled.div`
@@ -25,7 +30,7 @@ const List = ({ issue }) => {
     <Container>
       <Info>
         <Link to={`detail/${number}`}>
-          <h2>{`#${number} ${title}`}</h2>
+          <Title>{`#${number} ${title}`}</Title>
         </Link>
         <span>{`작성자: ${user.login}, 작성일: ${year}년 ${month}월 ${day}일`}</span>
       </Info>
