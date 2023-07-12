@@ -1,8 +1,9 @@
 import { useContext, Fragment } from 'react';
 import styled from 'styled-components';
-import { List, ScrollObserver } from '../components';
+import { List, ScrollObserver, Spinner } from '../components';
 import { IssuesContext } from '../context/Issues';
 import { AD_URL } from '../constants/urls';
+import useObsever from '../hooks/useObserver';
 
 const Banner = styled.img`
   display: block;
@@ -12,10 +13,11 @@ const Banner = styled.img`
 `;
 
 const Main = () => {
-  const { issues, isLoading, error } = useContext(IssuesContext);
+  const { issues, isLoading, error, hasNextPage, getNextPage } = useContext(IssuesContext);
+  const observerRef = useObsever(getNextPage);
 
   if (isLoading) {
-    return <div>...loading</div>;
+    return <Spinner />;
   }
 
   if (error) {
@@ -38,7 +40,7 @@ const Main = () => {
             </Fragment>
           );
         })}
-        <ScrollObserver />
+        {hasNextPage && <ScrollObserver observer={observerRef} isLoading={isLoading} />}
       </ul>
     </main>
   );
