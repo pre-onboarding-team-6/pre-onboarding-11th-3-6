@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
+import convertDateToKorean from '../utils/convertDateToKorean';
 
 const Container = styled.li`
   display: flex;
@@ -20,13 +21,8 @@ const Info = styled.div`
 
 const List = ({ issue }) => {
   const { number, title, user, created_at: createdAt, comments } = issue;
-
   const { id } = useParams();
-
-  const createdDate = new Date(createdAt);
-  const year = createdDate.getFullYear();
-  const month = createdDate.getMonth() + 1;
-  const day = createdDate.getDate();
+  const krDate = convertDateToKorean(createdAt);
 
   return (
     <Container>
@@ -38,7 +34,7 @@ const List = ({ issue }) => {
         ) : (
           <Title>{`#${number} ${title}`}</Title>
         )}
-        <span>{`작성자: ${user.login}, 작성일: ${year}년 ${month}월 ${day}일`}</span>
+        <span>{`작성자: ${user.login}, 작성일: ${krDate}`}</span>
       </Info>
       <div>
         <span>코멘트: {comments}</span>
