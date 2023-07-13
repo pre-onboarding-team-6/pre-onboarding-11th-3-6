@@ -7,7 +7,7 @@ const useIssues = () => {
   const { issues, setIssues } = useContext(IssuesContext);
   const { loading, error, setLoading, setHttpError } = useHttp();
   const [hasNextPage, setHasNextPage] = useState(true);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const getIssues = async () => {
     try {
