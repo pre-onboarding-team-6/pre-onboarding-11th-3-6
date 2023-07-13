@@ -1,9 +1,9 @@
-import { useContext, Fragment } from 'react';
+import { Fragment } from 'react';
 import styled from 'styled-components';
 import { List, ScrollObserver, Spinner } from '../components';
-import { IssuesContext } from '../context/Issues';
 import { AD_URL } from '../constants/urls';
 import useObsever from '../hooks/useObserver';
+import useIssues from '../hooks/useIssues';
 
 const Banner = styled.img`
   display: block;
@@ -12,15 +12,38 @@ const Banner = styled.img`
   cursor: pointer;
 `;
 
+const RefetchButton = styled.button`
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  width: 110px;
+  height: 40px;
+  margin: 0 auto;
+  border: 1px solid black;
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  :hover {
+    background-color: rgb(237, 237, 237);
+  }
+`;
+
 const Main = () => {
-  const { issues, isLoading, error, hasNextPage, getNextPage } = useContext(IssuesContext);
-  const observerRef = useObsever(getNextPage);
+  const { issues, getIssues, error, loading, hasNextPage } = useIssues();
+  const ref = useObsever(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (hasNextPage && !loading) {
+      getIssues();
+    }
+  });
 
   return (
     <main>
       <ul>
         {issues.map((issue, i) => {
-          const showAdBanner = (i + 1) % 5 === 0;
+          const showAdBanner = (i + 1) % 4 === 0;
           return (
             <Fragment key={issue.number}>
               <List i={i} issue={issue} />
@@ -32,9 +55,9 @@ const Main = () => {
             </Fragment>
           );
         })}
-        {error && <div>{error}</div>}
-        {isLoading && <Spinner />}
-        {hasNextPage && <ScrollObserver observer={observerRef} />}
+        {error && <RefetchButton onClick={getIssues}>다시 불러오기</RefetchButton>}
+        {loading && <Spinner />}
+        {!loading && <ScrollObserver observer={ref} />}
       </ul>
     </main>
   );

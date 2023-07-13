@@ -1,28 +1,27 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 
-const useObsever = callback => {
-  const observerRef = useRef(null);
-
-  const handleObserver = useCallback(
-    entries => {
-      const [target] = entries;
-      if (target.isIntersecting) {
-        callback();
-      }
+const useObserver = (onIntersect, options) => {
+  const ref = useRef(null);
+  const callback = useCallback(
+    (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) onIntersect(entry, observer);
+      });
     },
-    [callback]
+    [onIntersect]
   );
 
   useEffect(() => {
-    const element = observerRef.current;
-    const observer = new IntersectionObserver(handleObserver);
+    if (!ref.current) return;
 
-    observer.observe(element);
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(ref.current);
 
-    return () => observer.unobserve(element);
-  }, [handleObserver]);
+    // eslint-disable-next-line consistent-return
+    return () => observer.disconnect();
+  }, [ref, options, callback]);
 
-  return observerRef;
+  return ref;
 };
 
-export default useObsever;
+export default useObserver;

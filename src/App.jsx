@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Detail, Main, Root } from './pages';
 import GlobalStyle from './styles/GlobalStyle';
 import { IssuesProvider } from './context/Issues';
+import { IssueDetailProvider } from './context/IssueDetail';
 
 const router = createBrowserRouter([
   {
@@ -10,21 +11,29 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Main />,
+        element: (
+          <IssuesProvider>
+            <Main />
+          </IssuesProvider>
+        ),
       },
       {
         path: 'detail/:id',
-        element: <Detail />,
+        element: (
+          <IssueDetailProvider>
+            <Detail />
+          </IssueDetailProvider>
+        ),
       },
     ],
   },
 ]);
 
 const App = () => (
-  <IssuesProvider>
+  <>
     <GlobalStyle />
     <RouterProvider router={router} />
-  </IssuesProvider>
+  </>
 );
 
 export default App;
