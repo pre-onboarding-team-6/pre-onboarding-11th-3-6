@@ -6,6 +6,7 @@ import Error from '../components/Error';
 
 const Flex = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const Avatar = styled.img`
