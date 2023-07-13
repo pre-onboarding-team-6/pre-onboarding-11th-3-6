@@ -18,7 +18,7 @@ const IssueDataProvider = ({ children }) => {
       await axios
         .get(`https://api.github.com/repos/facebook/react/issues?page=${page}&sort=comments`, {
           headers: {
-            Authorization: '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',
+            Authorization: import.meta.env.VITE_TOKEN,
           },
         })
         .then(res => {

@@ -14,7 +14,7 @@ const IssuePage = () => {
       await axios
         .get(`https://api.github.com/repos/facebook/react/issues/${id}`, {
           headers: {
-            Authorization: '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',
+            Authorization: import.meta.env.VITE_TOKEN,
           },
         })
         .then(res => {
