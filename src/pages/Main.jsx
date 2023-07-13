@@ -16,14 +16,6 @@ const Main = () => {
   const { issues, isLoading, error, hasNextPage, getNextPage } = useContext(IssuesContext);
   const observerRef = useObsever(getNextPage);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
     <main>
       <ul>
@@ -40,6 +32,8 @@ const Main = () => {
             </Fragment>
           );
         })}
+        {error && <div>{error}</div>}
+        {isLoading && <Spinner />}
         {hasNextPage && <ScrollObserver observer={observerRef} />}
       </ul>
     </main>
