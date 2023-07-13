@@ -1,8 +1,8 @@
-import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { IssuesContext } from '../context/Issues';
 import { List, Post, Spinner } from '../components';
+import useIssue from '../hooks/useIssueDetail';
+import Error from '../components/Error';
 
 const Flex = styled.div`
   display: flex;
@@ -16,19 +16,14 @@ const Avatar = styled.img`
 `;
 
 const Detail = () => {
-  const { issue, isLoading, error, getIssueDetail } = useContext(IssuesContext);
   const { id: issueNumber } = useParams();
-
-  useEffect(() => {
-    getIssueDetail(issueNumber);
-  }, [getIssueDetail, issueNumber]);
-
-  if (!issue || isLoading) {
-    return <Spinner />;
+  const { issue, loading, error } = useIssue(issueNumber);
+  if (error) {
+    return <Error error={error} />;
   }
 
-  if (error) {
-    return <div>{error}</div>;
+  if (!issue || loading) {
+    return <Spinner />;
   }
 
   return (
